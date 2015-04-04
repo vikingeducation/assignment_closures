@@ -8,7 +8,7 @@ ASSIGNMENT ONE: FIX THESE BUTTON LISTENERS VIA CLOSURE
 
 assignments.one = function(){
 
-  //There's a problem with this Function
+  //There's a problem with this function
   var buttons = $('button');
 
   // No matter what I click, it always picks the same element
@@ -73,6 +73,10 @@ assignments.two = function(){
 
 
 
+
+
+// Don't touch this. Just the setup
+
 $(document).ready(function(){
 
   assignments.one();
@@ -80,21 +84,3 @@ $(document).ready(function(){
 
 
 });
-
-
-
-
-
-// var fn = function(one, two) {
-//       log(this, one, two);
-// }
-
-// var r = {};
-// r.method = fn;
-
-// setTimeout(r.method, 1000);
-
-// How to pass along the bindings you actually want? wrap it up:
-// setTimeout( function( ) {
-//   r.method( g, b);
-// }, 1000 );
