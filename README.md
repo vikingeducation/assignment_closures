@@ -1,1 +1,2 @@
-# sprint_closures
+## Viking Code School Closures Sprint
+
