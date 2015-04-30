@@ -11,17 +11,13 @@ assignments.one = function(){
   var buttons = $('button');
 
   for (var i = 0; i < buttons.length; i++) {
-
     var iNewI = i;
     (function(differentPointer){
       $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + differentPointer);
-     });
+        $('#clicked-btn').text('You clicked button #' +  differentPointer);
+      });
     })(iNewI);
-
   }
-
-
 }
 
 
@@ -38,11 +34,12 @@ assignments.two = function(){
                           //Otherwise, it would be undefined
                           console.log('sad');
                           this.mood = "sad.";
+                          var that = this;
                           $('#mood').text(this.mood);
 
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            that.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
@@ -51,34 +48,16 @@ assignments.two = function(){
                       })
            };
 
-
-
   viking.cheerUp();
-
-  //waits an extra millisecond to make sure
-  //that the other setTimeout has run.
-  //The problem is NOT here
   setTimeout( function() {
     $('#mood').text(viking.mood);
   }, 1001);
-
-
 };
-
-
-
-
-
-
-
-
-
-
 
 // Don't touch this. Just the setup
 
 $(document).ready(function(){
-
+  //touch
   assignments.one();
   assignments.two();
 
