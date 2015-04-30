@@ -8,17 +8,17 @@ ASSIGNMENT ONE: FIX THESE BUTTON LISTENERS VIA CLOSURE
 
 assignments.one = function(){
 
-  //There's a problem with this function
   var buttons = $('button');
 
-  // No matter what I click, it always picks the same element
-  // could it be CLOSURES???
   for (var i = 0; i < buttons.length; i++) {
 
-    // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
+    var iNewI = i;
+    (function(differentPointer){
+      $(buttons[i]).on('click', function() {
+        $('#clicked-btn').text('You clicked button #' + differentPointer);
      });
+    })(iNewI);
+
   }
 
 
