@@ -15,10 +15,13 @@ assignments.one = function(){
   // could it be CLOSURES???
   for (var i = 0; i < buttons.length; i++) {
 
-    // somehow, i is always the same value
+    var indexPtr = i;
+    
+    (function(iptr) { 
      $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
+        $('#clicked-btn').text('You clicked button #' + iptr);
      });
+   })(indexPtr);
   }
 
 
@@ -38,11 +41,12 @@ assignments.two = function(){
                           //Otherwise, it would be undefined
                           console.log('sad');
                           this.mood = "sad.";
+                          var better = this;
                           $('#mood').text(this.mood);
 
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            better.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
