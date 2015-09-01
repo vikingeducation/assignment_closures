@@ -10,15 +10,17 @@ assignments.one = function(){
 
   //There's a problem with this function
   var buttons = $('button');
-
+  var current_b;
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
   for (var i = 0; i < buttons.length; i++) {
-
+      current_b = buttons[i];
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
+    function(current_b, i){
+        $(current_b).on('click', function() {
         $('#clicked-btn').text('You clicked button #' + i);
      });
+    }
   }
 
 
