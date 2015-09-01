@@ -15,7 +15,7 @@ assignments.one = function(){
   // could it be CLOSURES???
 
 
-//First way
+  //First way
   // buttons.each(function(index,element){
   //   $(element).on('click', function() {
   //       $('#clicked-btn').text('You clicked button #' + index);})
@@ -23,15 +23,16 @@ assignments.one = function(){
 
   for (var i = 0; i < buttons.length; i++) {
   //Third way  
-     //  function (i){
-     //   $(buttons[i]).on('click',  function() {
-     //    $('#clicked-btn').text('You clicked button #' + i);
-     // });
-    //}
-    message(i);
+    var clickedButton = function(i){
+      $(buttons[i]).on('click',  function() {
+        $('#clicked-btn').text('You clicked button #' + i);
+      });
     };
+  //Second way
+  // message(i);
+  };
 
-//Second way
+  //Second way
   function message(i){
     // somehow, i is always the same value
      $(buttons[i]).on('click', function() {
@@ -69,8 +70,9 @@ assignments.two = function(){
                           $('#mood').text(this.mood);
 
                           //So what goes wrong here?
+                          //'this' was changed to global window, and there is no 'mood' in that scope. We need to call viking.mood instead of this.mood.
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            viking.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
