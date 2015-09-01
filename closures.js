@@ -15,7 +15,9 @@ assignments.one = function(){
   // could it be CLOSURES???
 
   var clicking = function(num){
-    $('#clicked-btn').text('You clicked button #' + num);
+    return function(){
+      $('#clicked-btn').text('You clicked button #' + num);
+    };
  };
 
   for (var i = 0; i < buttons.length; i++) {
