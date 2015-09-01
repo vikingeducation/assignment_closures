@@ -10,17 +10,45 @@ assignments.one = function(){
 
   //There's a problem with this function
   var buttons = $('button');
-
+  var arr = $.makeArray( buttons);
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
-  for (var i = 0; i < buttons.length; i++) {
 
+
+//First way
+  // buttons.each(function(index,element){
+  //   $(element).on('click', function() {
+  //       $('#clicked-btn').text('You clicked button #' + index);})
+  // });
+
+  for (var i = 0; i < buttons.length; i++) {
+  //Third way  
+     //  function (i){
+     //   $(buttons[i]).on('click',  function() {
+     //    $('#clicked-btn').text('You clicked button #' + i);
+     // });
+    //}
+    message(i);
+    };
+
+//Second way
+  function message(i){
     // somehow, i is always the same value
      $(buttons[i]).on('click', function() {
         $('#clicked-btn').text('You clicked button #' + i);
      });
   }
 
+//Initial code:
+// for (var i = 0; i < buttons.length; i++) {
+
+//     // somehow, i is always the same value
+//      $(buttons[i]).on('click', function() {
+//         $('#clicked-btn').text('You clicked button #' + i);
+//      });
+//   }
+//Explanation:
+//For loop holds one closure that contains i, in this scope the inner function runs and uses the same i which is overwritten in each loop. And for the last loop i = 4. That is why we always see "You clicked 4". To fix this we need inside the loop any function declared or anonymous to make it forse loop to create each time different closure with different i for each inner function.
 
 }
 
