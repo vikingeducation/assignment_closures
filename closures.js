@@ -13,16 +13,18 @@ assignments.one = function(){
 
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
+
+  var clicking = function(num){
+    return function(){
+      $('#clicked-btn').text('You clicked button #' + num);
+    };
+  };
+
   for (var i = 0; i < buttons.length; i++) {
-
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
+     $(buttons[i]).on('click', clicking(i));
   }
-
-
-}
+};
 
 
 
@@ -30,28 +32,33 @@ assignments.one = function(){
 ASSIGNMENT TWO: CHEER UP THE SAD VIKING VIA CLOSURE
 ********************************************* */
 
+// When we create a function within another, it creates a
+// new closure. So the mood defined does not refer to the
+// viking closure.
+
 assignments.two = function(){
 
   var viking = {  mood: undefined,
-                  cheerUp: ( function() {
-                          //This part works!
-                          //Otherwise, it would be undefined
-                          console.log('sad');
-                          this.mood = "sad.";
-                          $('#mood').text(this.mood);
+                  changeMood: function(){
+                    viking.mood = "Happy!";
+                    console.log("Cheered Up!");
+                  },
+                  cheerUp: function(){
+                    //This part works!
+                    //Otherwise, it would be undefined
+                    console.log('sad');
+                    viking.mood = "sad.";
+                    $('#mood').text(viking.mood);
+                    // ANS: So what goes wrong here? The function was defined here, creating another closure. Instead we moved it out of CheerUp to ensure the variables it references are the ones listed on the viking object / assignments.two function closure.
+                    // setTimeout(this.changeMood, 500);
+                    setTimeout(function(){
+                      viking.mood = "Happy!";  // viking.mood reaches into the right closure and changes mood
+                      console.log("Cheered Up!");
+                    }, 500)
 
-                          //So what goes wrong here?
-                          setTimeout( (function() {
-                            this.mood = "Happy!";
-
-                            //THIS even runs correctly!
-                            //What is UP with this? :(
-                            console.log("Cheered Up!")
-                          }), 1000);
-                      })
+                    ;
+                  }
            };
-
-
 
   viking.cheerUp();
 
@@ -60,7 +67,7 @@ assignments.two = function(){
   //The problem is NOT here
   setTimeout( function() {
     $('#mood').text(viking.mood);
-  }, 1001);
+  }, 5001);
 
 
 };
