@@ -9,20 +9,31 @@ ASSIGNMENT ONE: FIX THESE BUTTON LISTENERS VIA CLOSURE
 assignments.one = function(){
 
   //There's a problem with this function
-  var buttons = $('button');
+  var buttons = $('button'); // NO CHANGES HERE
+
+  var current_b;
+
+  //DECLARED FN OUTSIDE FOR LOOP TO
+  //CREATE NEW CLOSURE FOR EACH LISTENER
+
+  var addButtonListener = function(button, i){
+    $(button).on('click', function() {
+    $('#clicked-btn').text('You clicked button #' + i);
+   });};
+
 
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
   for (var i = 0; i < buttons.length; i++) {
-
+      current_b = buttons[i];
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
+    // BECAUSE ONLY ONE i VAR IN THIS CLOSURE(one fn)
+
+    //PASSED IN VARIABLES TO FUNCTION TO KEEP THESE VALUES
+      addButtonListener(current_b, i);
   }
+};
 
-
-}
 
 
 
@@ -41,12 +52,15 @@ assignments.two = function(){
                           $('#mood').text(this.mood);
 
                           //So what goes wrong here?
+                          //setTimeout changes `this` to Window
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            // this.mood = "Happy!";
+                            //  THIS IS WINDOW OBJ
+                            viking.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
-                            console.log("Cheered Up!")
+                            console.log("Cheered Up!");
                           }), 1000);
                       })
            };
