@@ -16,9 +16,16 @@ assignments.one = function(){
   for (var i = 0; i < buttons.length; i++) {
 
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
+    $(buttons[i]).on('click', function() {
+      // 'this' is the correct button, but the closure here stores i as 4
+      // this happens because i is looked up after the click,
+      // which always comes through as 4 because the loop has completed
+      // (it i++'ed until i > length...4 )
+      // To fix, i'll try replacing the reference to i with a more specific
+      // ...reference to the button
+      $('#clicked-btn').text('You clicked button #' + buttons.index(this));
+      // old code: $('#clicked-btn').text('You clicked button #' + i);
+    });
   }
 
 
