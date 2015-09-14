@@ -48,8 +48,12 @@ assignments.two = function(){
                           $('#mood').text(this.mood);
 
                           //So what goes wrong here?
+                          // setTimeout: this = Window
+                          // it kept 'viking' in the closure though
+                          // so I'll use that
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            viking.mood = "Happy!";
+                            // old code: this.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
