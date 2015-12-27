@@ -4,12 +4,49 @@
   <title>Closure Practice</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript" src="closures.js"></script>
+
+  <style>
+    .explanation {
+      color: green;
+    }
+  </style>
 </head>
 
 <body>
 
   <h1>Viking Closure School</h1>
   <h2>Assignment One</h2>
+  
+  <!-- Explanation -->
+  <div class="explanation">
+    <p>
+      In this example the referenced index (<code>i</code>)
+      in the <code>for</code> loop pointed
+      to the value of <code>i</code> at the end of the <code>for</code>
+      loop. This value was <code>3</code>.
+    </p>
+    <p>
+      To solve this problem a new closure is created
+      with a parent closure that "FREEZES" the value
+      of <code>i</code> in the child closure.
+    </p>
+    <p>
+      This is accomplished by creating a new closure to
+      which the value of <code>i</code> is passed as a
+      parameter. Then a child closure is created which references
+      this "FROZEN" value of <code>i</code>.
+    </p>
+    <p>
+      Thus when the <code>return</code> value of the function
+      <code>func</code> is set to the event listener it holds the
+      current value of <code>i</code> instead of referencing the
+      value of <code>i</code> in the parent scope.
+    </p>
+    <p>
+      See the comments in code for inline details.
+    </p>
+  </div>
+
   <p>
     Fix these Buttons! Their event listeners are working wrong, thanks to a misunderstanding
     of closure and scope.
@@ -22,6 +59,27 @@
   <hr>
 
   <h2>Assignment Two: Cheer Up the Viking</h2>
+
+  <!-- Explanation -->
+  <div class="explanation">
+    <p>
+      This is a simple misunderstanding of what to which the
+      current value of <code>this</code> is pointing.
+    </p>
+    <p>
+      As can be seen in the inline comments, by capturing the current value
+      of <code>this</code> in a variable in the parent scope it can be used in the child scope.
+    </p>
+    <p>
+      This allows the child scope to reference the parent value of <code>this</code>.
+      This is not possible with the value of <code>this</code> in the child scope
+      because <code>setTimeout</code> scope's value of <code>this</code> points to Window.
+    </p>
+    <p>
+      See the comments in code for inline details.
+    </p>
+  </div>
+
   <p>The Viking is <span id = "mood">sad.</span></p>
   <p><em>It's probably about closures.</em></p>
 
