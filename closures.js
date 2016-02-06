@@ -1,3 +1,4 @@
+"use strict";
 
 var assignments = {};
 
@@ -10,20 +11,29 @@ assignments.one = function(){
 
   //There's a problem with this function
   var buttons = $('button');
+  var textFunc = function(buttonNum){
+    return function(){
+      $('#clicked-btn').text('You clicked button #' + buttonNum);
+    }
+  };
 
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
   for (var i = 0; i < buttons.length; i++) {
-
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
+     $(buttons[i]).on('click', textFunc(i));
   }
 
 
-}
+};
 
+// Issue with assignment one.  Function assigned to click isn't run
+// until we click the button.  At this point "i" has been set to the 
+// final value of the loop.  Its kept by closure of the assignments.one function
+
+// If we create a function that returns another function the "buttonNum"
+// will get set during the loop, instead of just being referenced
+// later when the event is handled
 
 
 /* ********************************************
@@ -42,7 +52,8 @@ assignments.two = function(){
 
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            viking.mood = "Happy!";
+                            // this.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
@@ -64,6 +75,10 @@ assignments.two = function(){
 
 
 };
+
+
+//The issue with assignment two is related to scope, within the setTimeout
+//function "this" is the window object, not the viking object
 
 
 
