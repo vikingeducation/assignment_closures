@@ -11,14 +11,18 @@ assignments.one = function(){
   //There's a problem with this function
   var buttons = $('button');
 
+  // need to create a function that gets called from within the for loop, so that i is within scope
+  var printFunction = function(index) {
+    // on click was a function too, so had to move this out as well
+    $(buttons[index]).on('click', function() {
+      return $('#clicked-btn').text('You clicked button #' + index)
+    })
+  }
+
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
   for (var i = 0; i < buttons.length; i++) {
-
-    // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
+    printFunction(i);
   }
 
 
@@ -33,27 +37,32 @@ ASSIGNMENT TWO: CHEER UP THE SAD VIKING VIA CLOSURE
 assignments.two = function(){
 
   var viking = {  mood: undefined,
-                  cheerUp: ( function() {
+                  cheerUp: function() {
                           //This part works!
                           //Otherwise, it would be undefined
                           console.log('sad');
                           this.mood = "sad.";
                           $('#mood').text(this.mood);
 
+
+                          // viking is in scope here, but not when we're inside setTimeout
+                          // store viking in 'that' and use it instead
+                          var that = this;
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            that.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
                             console.log("Cheered Up!")
-                          }), 1000);
-                      })
-           };
+                          }), 1000)
+                          }
+                };
 
 
 
   viking.cheerUp();
+
 
   //waits an extra millisecond to make sure
   //that the other setTimeout has run.
