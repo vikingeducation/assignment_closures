@@ -41,16 +41,19 @@ assignments.two = function(){
                           //Otherwise, it would be undefined
                           this.mood = "sad.";
                           $('#mood').text(this.mood);
+                          
+                          var that = this;
+                          (function() {
+                            //So what goes wrong here?
+                            setTimeout( function() {
+                              that.mood = "Happy!";
+                              console.log(that.mood);
 
-                          //So what goes wrong here?
-                          setTimeout( (function() {
-                            viking.mood = "Happy!";
-                            console.log(this.mood);
-
-                            //THIS even runs correctly!
-                            //What is UP with this? :(
-                            console.log("Cheered Up!")
-                          }), 1000);
+                              //THIS even runs correctly!
+                              //What is UP with this? :(
+                              console.log("Cheered Up!")
+                            }, 1000);
+                          })();
                       })
            };
 
