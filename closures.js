@@ -12,7 +12,6 @@ assignments.one = function(){
   var buttons = $('button');
 
   var buttonFunc = function( num ) {
-
      $(buttons[num]).on('click', function() {
         $('#clicked-btn').text('You clicked button #' + num);
      });
@@ -40,13 +39,13 @@ assignments.two = function(){
                   cheerUp: ( function() {
                           //This part works!
                           //Otherwise, it would be undefined
-                          console.log('sad');
                           this.mood = "sad.";
                           $('#mood').text(this.mood);
 
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            viking.mood = "Happy!";
+                            console.log(this.mood);
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
