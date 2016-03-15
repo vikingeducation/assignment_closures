@@ -44,9 +44,12 @@ assignments.two = function(){
                           this.mood = "sad.";
                           $('#mood').text(this.mood);
 
+                          // viking is in scope here, but not when we're inside setTimeout
+                          // store viking in 'that' and use it instead
+                          var that = this;
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            that.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
