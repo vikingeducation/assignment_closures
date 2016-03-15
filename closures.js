@@ -11,14 +11,23 @@ assignments.one = function(){
   //There's a problem with this function
   var buttons = $('button');
 
+  var message = function(arg){
+
+    return function() {
+      $('#clicked-btn').text('You clicked button #' + arg);
+    }
+  }
+
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
+
   for (var i = 0; i < buttons.length; i++) {
 
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
+
+    $(buttons[i]).on('click', message(i));
+
+
   }
 
 
