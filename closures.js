@@ -13,16 +13,19 @@ assignments.one = function(){
 
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
+
+  // I remember an example about this saying that because the i is always going to refer to the i in this for loop, and the i will be the number before the buttons.length.
+  // I think the rule is, every time a new function is called, a new closure is created.
+  // So if we set each listener with a different function, that will reference separated closures where the i is different on each.
+
+  var clickListener = function( array, index ){
+    $(array[index]).on( 'click', function(){$('#clicked-btn').text('You clicked button #' + index)} )
+  };
+
   for (var i = 0; i < buttons.length; i++) {
-
-    // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
-  }
-
-
-}
+    clickListener( buttons, i );
+  };
+};
 
 
 
