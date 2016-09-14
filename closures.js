@@ -16,8 +16,10 @@ assignments.one = function(){
   for (var i = 0; i < buttons.length; i++) {
 
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
+     $(buttons[i]).on('click', function(num) {
+        (function() {
+          $('#clicked-btn').text('You clicked button #' + num);
+        })(i);
      });
   }
 
