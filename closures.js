@@ -16,15 +16,17 @@ assignments.one = function(){
   for (var i = 0; i < buttons.length; i++) {
 
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function(num) {
-        (function() {
-          $('#clicked-btn').text('You clicked button #' + num);
-        })(i);
-     });
+      (function(num) {
+         $(buttons[i]).on('click', function() {
+            $('#clicked-btn').text('You clicked button #' + num);
+         });
+      })(i);
   }
 
 
-}
+} 
+
+// We want the function to execute immediately, but we don't want it to reference the same 'i', so we wrap the setting of the listener in a function that passes in the current 'i' and executes with that immediately. It works because each time the function is called it saves that 'i' in its own closure. 
 
 
 
