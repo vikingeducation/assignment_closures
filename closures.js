@@ -13,12 +13,14 @@ assignments.one = function(){
 
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
+  var f = function(num){
+    $(buttons[num]).on('click', function() {
+      $('#clicked-btn').text('You clicked button #' + num);
+    });
+  }
   for (var i = 0; i < buttons.length; i++) {
-
+    f(i)
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
   }
 
 
@@ -34,6 +36,7 @@ assignments.two = function(){
 
   var viking = {  mood: undefined,
                   cheerUp: ( function() {
+                          var that = this;
                           //This part works!
                           //Otherwise, it would be undefined
                           console.log('sad');
@@ -42,7 +45,7 @@ assignments.two = function(){
 
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            that.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
