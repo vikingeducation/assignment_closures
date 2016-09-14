@@ -16,13 +16,18 @@ assignments.one = function(){
   for (var i = 0; i < buttons.length; i++) {
 
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
+    (function(i) {$(buttons[i]).on('click', function() {
+      $('#clicked-btn').text('You clicked button #' + i);
+    });})(i);
   }
 
+};
 
-}
+//The handler function does not get called until you click on the button,
+//which is after the loop has already concluded, thus i is equal to 4
+
+//So we just wrapped the listener declaration in an anonymous function and
+//explicitly passed i as a parameter.
 
 
 
@@ -40,14 +45,14 @@ assignments.two = function(){
                           this.mood = "sad.";
                           $('#mood').text(this.mood);
 
-                          //So what goes wrong here?
-                          setTimeout( (function() {
-                            this.mood = "Happy!";
+                    //So what goes wrong here?
+                    (function(that) {setTimeout( (function() {
+                      that.mood = "Happy!";
 
-                            //THIS even runs correctly!
-                            //What is UP with this? :(
-                            console.log("Cheered Up!")
-                          }), 1000);
+                      //THIS even runs correctly!
+                      //What is UP with this? :(
+                      console.log("Cheered Up!");
+                    }), 1000);})(this);
                       })
            };
 
@@ -62,8 +67,13 @@ assignments.two = function(){
     $('#mood').text(viking.mood);
   }, 1001);
 
-
 };
+
+//setTimeout was calling its anonymous function in the context of the window,
+//thus, this was the window, instead of the viking.
+
+//So, at the declaration of the timeout, we passed in viking in the form of
+// 'this' to another anonymous function, creating a new closure.
 
 
 
