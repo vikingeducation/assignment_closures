@@ -6,6 +6,8 @@ var assignments = {};
 ASSIGNMENT ONE: FIX THESE BUTTON LISTENERS VIA CLOSURE
 ********************************************* */
 
+// passing in argument to func
+
 assignments.one = function(){
 
   //There's a problem with this function
@@ -19,18 +21,19 @@ assignments.one = function(){
     });
   }
   for (var i = 0; i < buttons.length; i++) {
-    f(i)
+    f(i);
     // somehow, i is always the same value
   }
 
 
 }
 
-
-
 /* ********************************************
 ASSIGNMENT TWO: CHEER UP THE SAD VIKING VIA CLOSURE
 ********************************************* */
+
+// set a reference to this as 'that' and SetTimeout scope has a reference to the closure of cheerUp which
+//contains that
 
 assignments.two = function(){
 
@@ -53,8 +56,6 @@ assignments.two = function(){
                           }), 1000);
                       })
            };
-
-
 
   viking.cheerUp();
 
