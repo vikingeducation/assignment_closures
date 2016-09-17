@@ -6,6 +6,8 @@ var assignments = {};
 ASSIGNMENT ONE: FIX THESE BUTTON LISTENERS VIA CLOSURE
 ********************************************* */
 
+// passing in argument to func
+
 assignments.one = function(){
 
   //There's a problem with this function
@@ -13,27 +15,31 @@ assignments.one = function(){
 
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
+  var f = function(num){
+    $(buttons[num]).on('click', function() {
+      $('#clicked-btn').text('You clicked button #' + num);
+    });
+  }
   for (var i = 0; i < buttons.length; i++) {
-
+    f(i);
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
   }
 
 
 }
 
-
-
 /* ********************************************
 ASSIGNMENT TWO: CHEER UP THE SAD VIKING VIA CLOSURE
 ********************************************* */
+
+// set a reference to this as 'that' and SetTimeout scope has a reference to the closure of cheerUp which
+//contains that
 
 assignments.two = function(){
 
   var viking = {  mood: undefined,
                   cheerUp: ( function() {
+                          var that = this;
                           //This part works!
                           //Otherwise, it would be undefined
                           console.log('sad');
@@ -42,7 +48,7 @@ assignments.two = function(){
 
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            that.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
@@ -50,8 +56,6 @@ assignments.two = function(){
                           }), 1000);
                       })
            };
-
-
 
   viking.cheerUp();
 
