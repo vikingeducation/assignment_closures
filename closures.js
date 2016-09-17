@@ -13,12 +13,25 @@ assignments.one = function(){
 
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
+  var handler = function(i){
+    $(buttons[i]).on('click', function(){
+      $('#clicked-btn').text('You clicked button #' + i);
+    })
+    
+    
+  }
   for (var i = 0; i < buttons.length; i++) {
 
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
+
+    /*the click listener is getting i from the closure passed to it by the parent function one, which is 4 since the loop is done executing before the function is called */
+     
+     $(buttons[i]).on('click', function(){
+       $('#clicked-btn').text('You clicked button #' + i);
      });
+
+     handler(i); //create a new closure with the proper i value
+
   }
 
 
@@ -42,7 +55,9 @@ assignments.two = function(){
 
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            //can't set the mood attribute on 'this' because 
+                            //it is the window object in this function
+                            viking.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
