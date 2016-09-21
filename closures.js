@@ -11,14 +11,22 @@ assignments.one = function(){
   //There's a problem with this function
   var buttons = $('button');
 
+  var func = function(num) {
+    $(buttons[num]).on('click', function() {
+     $('#clicked-btn').text('You clicked button #' + num);
+  })};
+
+
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
   for (var i = 0; i < buttons.length; i++) {
+    func(i)
 
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
+    //  $(buttons[i]).on('click', function() {
+    //     $('#clicked-btn').text('You clicked button #' + $(this).text());
+    //  });
+
   }
 
 
@@ -33,19 +41,14 @@ ASSIGNMENT TWO: CHEER UP THE SAD VIKING VIA CLOSURE
 assignments.two = function(){
 
   var viking = {  mood: undefined,
-                  cheerUp: ( function() {
-                          //This part works!
-                          //Otherwise, it would be undefined
+                  cheerUp:  (function() {
+
                           console.log('sad');
                           this.mood = "sad.";
                           $('#mood').text(this.mood);
 
-                          //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
-
-                            //THIS even runs correctly!
-                            //What is UP with this? :(
+                            viking.mood = "Happy!";
                             console.log("Cheered Up!")
                           }), 1000);
                       })
