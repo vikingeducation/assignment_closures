@@ -6,19 +6,29 @@ var assignments = {};
 ASSIGNMENT ONE: FIX THESE BUTTON LISTENERS VIA CLOSURE
 ********************************************* */
 
+// the issue here is the closure is passing the final value of i
+// as the for loop has fully executed
+// by refactoring into a callable function, our button is passed the
+// proper parameters in the closure
+
+
 assignments.one = function(){
 
   //There's a problem with this function
   var buttons = $('button');
 
+  var buttonSelection =  function(number){
+      $(buttons[number]).on('click', function() {
+      $('#clicked-btn').text('You clicked button #' + number);
+     });
+  }
+
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
   for (var i = 0; i < buttons.length; i++) {
 
-    // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
+    buttonSelection(i)
+    
   }
 
 
@@ -29,6 +39,10 @@ assignments.one = function(){
 /* ********************************************
 ASSIGNMENT TWO: CHEER UP THE SAD VIKING VIA CLOSURE
 ********************************************* */
+
+  // the issue here is that when inside set interval "this"
+  // is window, we can work around this by just not using this
+  // we did this via a setter function
 
 assignments.two = function(){
 
@@ -42,13 +56,17 @@ assignments.two = function(){
 
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
-
+                            viking.setMood("Happy!");
+                            console.log(this)
                             //THIS even runs correctly!
                             //What is UP with this? :(
                             console.log("Cheered Up!")
                           }), 1000);
-                      })
+                      }),
+                  setMood: function(mood){
+                    viking.mood = mood
+                  }
+
            };
 
 
