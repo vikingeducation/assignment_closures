@@ -6,22 +6,33 @@ var assignments = {};
 ASSIGNMENT ONE: FIX THESE BUTTON LISTENERS VIA CLOSURE
 ********************************************* */
 
+// Before fix: All created handlers were accessing i from the same parent
+// function's closure. So, the value of i changed with each iteration and ended
+//  at four
+
+// After fix: Moved function definition outside of the loop and had it
+// take i as an argument and return a new anonymous function,
+// this creates a new closure every time clickHandler is called so each of the
+// anonymous functions it returns are accessing different closures.
 assignments.one = function(){
 
   //There's a problem with this function
   var buttons = $('button');
+
+  var clickHandler = function clickHandler(j) {
+    return function(e){
+      console.log(e.target);
+      $('#clicked-btn').text('You clicked button #' + j);
+    }
+  }
 
   // No matter what I click, it always picks the same element
   // could it be CLOSURES???
   for (var i = 0; i < buttons.length; i++) {
 
     // somehow, i is always the same value
-     $(buttons[i]).on('click', function() {
-        $('#clicked-btn').text('You clicked button #' + i);
-     });
+     $(buttons[i]).on('click', clickHandler(i));
   }
-
-
 }
 
 
@@ -30,6 +41,11 @@ assignments.one = function(){
 ASSIGNMENT TWO: CHEER UP THE SAD VIKING VIA CLOSURE
 ********************************************* */
 
+// After you setTimeout, the function is called by the window, so 'this' refers
+// to window
+//  To fix: capture our intended 'this' in _this and reference that in the timed outside
+// function
+// OR - since viking is just an object, use it explicitly in the setTimeout function
 assignments.two = function(){
 
   var viking = {  mood: undefined,
@@ -42,7 +58,7 @@ assignments.two = function(){
 
                           //So what goes wrong here?
                           setTimeout( (function() {
-                            this.mood = "Happy!";
+                            viking.mood = "Happy!";
 
                             //THIS even runs correctly!
                             //What is UP with this? :(
